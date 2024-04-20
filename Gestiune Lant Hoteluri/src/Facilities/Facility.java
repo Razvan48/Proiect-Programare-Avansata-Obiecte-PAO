@@ -2,7 +2,7 @@ package Facilities;
 
 public class Facility {
 
-    static private int facilityIDGenerator = 0;
+    private static int facilityIDGenerator = 0;
 
     private final int facilityID;
     private String description;

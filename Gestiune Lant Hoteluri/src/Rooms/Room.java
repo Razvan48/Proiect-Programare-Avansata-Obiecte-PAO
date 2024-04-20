@@ -2,16 +2,17 @@ package Rooms;
 
 import Facilities.Facility;
 
-import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
 
 public abstract class Room {
-    static protected double pricePerPerson = 500.0;
-    static private int roomIDGenerator = 0;
+    protected static double pricePerPerson = 500.0;
+    private static int roomIDGenerator = 0;
 
     protected final int roomID;
     protected int roomNumber;
     protected int floor;
-    HashSet<Facility> facilities;
+    Map<Integer, Facility> facilities;
 
     Room(int roomNumber, int floor) {
         ++roomIDGenerator;
@@ -20,7 +21,7 @@ public abstract class Room {
         this.roomNumber = roomNumber;
         this.floor = floor;
 
-        this.facilities = new HashSet<Facility>();
+        this.facilities = new HashMap<Integer, Facility>();
     }
 
     public Room(Room room) {
@@ -28,13 +29,13 @@ public abstract class Room {
         this.roomNumber = room.roomNumber;
         this.floor = room.floor;
 
-        this.facilities = new HashSet<Facility>(room.facilities);
+        this.facilities = new HashMap<Integer, Facility>(room.facilities);
     }
 
     public abstract double getPrice();
 
     public void addFacility(Facility facility) {
-        this.facilities.add(new Facility(facility));
+        this.facilities.put(facility.getFacilityID(), new Facility(facility));
     }
 
     @Override
@@ -42,7 +43,7 @@ public abstract class Room {
         StringBuilder result = new StringBuilder("Room ( ID=" + this.roomID + " ROOM_NUM=" + this.roomNumber + " FLOOR=" + this.floor + " )\n");
 
         result.append("Facilities (\n");
-        for (Facility facility : this.facilities) {
+        for (Facility facility : this.facilities.values()) {
             result.append("\t").append(facility.toString()).append("\n");
         }
 
@@ -57,4 +58,6 @@ public abstract class Room {
     }
 
     public abstract Room clone();
+
+    public int getRoomID() { return this.roomID; }
 }
