@@ -3,7 +3,7 @@ package Rooms;
 import Facilities.Facility;
 
 import java.util.Map;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public abstract class Room {
     protected static double pricePerPerson = 500.0;
@@ -21,7 +21,7 @@ public abstract class Room {
         this.roomNumber = roomNumber;
         this.floor = floor;
 
-        this.facilities = new HashMap<Integer, Facility>();
+        this.facilities = new TreeMap<Integer, Facility>();
     }
 
     public Room(Room room) {
@@ -29,7 +29,7 @@ public abstract class Room {
         this.roomNumber = room.roomNumber;
         this.floor = room.floor;
 
-        this.facilities = new HashMap<Integer, Facility>(room.facilities);
+        this.facilities = new TreeMap<Integer, Facility>(room.facilities);
     }
 
     public abstract double getPrice();

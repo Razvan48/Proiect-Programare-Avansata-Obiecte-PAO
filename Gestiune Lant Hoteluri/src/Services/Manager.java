@@ -1,27 +1,29 @@
 package Services;
 
-import Hotels.Hotel;
+import Locations.Location;
+import Buildings.Hotel;
 import Rooms.Room;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
-public class HotelManager {
+public class Manager {
 
-    private static HotelManager INSTANCE = null;
-    private HotelManager() {
-        this.hotels = new HashMap<Integer, Hotel>();
+    private static Manager INSTANCE = null;
+    private Manager() {
+        this.locations = new TreeMap<Integer, Location>();
     }
 
-    private Map<Integer, Hotel> hotels;
+    private Map<Integer, Location> locations;
 
-    static public HotelManager get() {
+    static public Manager get() {
         if (INSTANCE == null) {
-            INSTANCE = new HotelManager();
+            INSTANCE = new Manager();
         }
         return INSTANCE;
     }
 
+    /*
     public String displayHotels() {
         StringBuilder result = new StringBuilder("");
 
@@ -32,11 +34,15 @@ public class HotelManager {
 
         return result.toString();
     }
+     */
 
+    /*
     public void addHotel(Hotel hotel) {
         this.hotels.put(hotel.getHotelID(), new Hotel(hotel));
     }
+     */
 
+    /*
     public void addRoom(int hotelID, Room room) {
         if (this.hotels.containsKey(hotelID)) {
             this.hotels.get(hotelID).addRoom(room);
@@ -63,4 +69,5 @@ public class HotelManager {
             return "ERROR :: The given hotel ID does not exist!\n";
         }
     }
+     */
 }

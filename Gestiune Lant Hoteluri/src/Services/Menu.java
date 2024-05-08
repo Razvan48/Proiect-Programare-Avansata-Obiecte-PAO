@@ -1,6 +1,6 @@
 package Services;
 
-import Hotels.Hotel;
+import Buildings.Hotel;
 import Rooms.DoubleRoom;
 import Rooms.Room;
 import Rooms.SingleRoom;
@@ -38,6 +38,7 @@ public class Menu {
         return result.toString();
     }
 
+    /*
     public void run() {
 
         Scanner scanner = new Scanner(System.in);
@@ -53,7 +54,7 @@ public class Menu {
 
                 if (decision.equals("hotel")) {
                     System.out.println("give hotel name, number of stars and construction year\n");
-                    HotelManager.get().addHotel(new Hotel(scanner.next(), scanner.nextInt(), scanner.nextInt()));
+                    Manager.get().addHotel(new Hotel(scanner.next(), scanner.nextInt(), scanner.nextInt()));
                 }
                 else if (decision.equals("room")) {
                     System.out.println("give hotel ID\n");
@@ -63,15 +64,15 @@ public class Menu {
 
                     if (decision.equals("single")) {
                         System.out.println("give room number, floor\n");
-                        HotelManager.get().addRoom(hotelID, new SingleRoom(scanner.nextInt(), scanner.nextInt()));
+                        Manager.get().addRoom(hotelID, new SingleRoom(scanner.nextInt(), scanner.nextInt()));
                     }
                     else if (decision.equals("double")) {
                         System.out.println("give room number, floor\n");
-                        HotelManager.get().addRoom(hotelID, new DoubleRoom(scanner.nextInt(), scanner.nextInt()));
+                        Manager.get().addRoom(hotelID, new DoubleRoom(scanner.nextInt(), scanner.nextInt()));
                     }
                     else if (decision.equals("triple")) {
                         System.out.println("give room number, floor\n");
-                        HotelManager.get().addRoom(hotelID, new TripleRoom(scanner.nextInt(), scanner.nextInt()));
+                        Manager.get().addRoom(hotelID, new TripleRoom(scanner.nextInt(), scanner.nextInt()));
                     }
                     else {
                         System.out.println("ERROR :: Unknown room type!\n");
@@ -87,11 +88,11 @@ public class Menu {
 
                 if (decision.equals("hotel")) {
                     System.out.println("give hotel ID\n");
-                    System.out.println(HotelManager.get().displayHotel(scanner.nextInt()));
+                    System.out.println(Manager.get().displayHotel(scanner.nextInt()));
                 }
                 else if (decision.equals("room")) {
                     System.out.println("give hotel ID and room ID\n");
-                    System.out.println(HotelManager.get().displayRoom(scanner.nextInt(), scanner.nextInt()));
+                    System.out.println(Manager.get().displayRoom(scanner.nextInt(), scanner.nextInt()));
                 }
                 else {
                     System.out.println("ERROR :: Unknown decision!\n");
@@ -109,4 +110,5 @@ public class Menu {
             }
         }
     }
+     */
 }
