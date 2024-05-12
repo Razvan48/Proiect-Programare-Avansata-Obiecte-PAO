@@ -21,17 +21,17 @@ public class Database {
         this.rooms = new TreeMap<Integer, Room>();
     }
 
-    static public Database get() {
-        if (INSTANCE == null) {
-            INSTANCE = new Database();
+    public static Database get() {
+        if (Database.INSTANCE == null) {
+            Database.INSTANCE = new Database();
         }
-        return INSTANCE;
+        return Database.INSTANCE;
     }
 
     public Building getBuilding(int buildingID) {
         Building result = this.buildings.get(buildingID);
         if (result == null) {
-            System.out.println("ERROR :: Database getBuilding :: building does not exist.\n");
+            System.out.println("ERROR :: Database getBuilding :: building does not exist\n");
         }
         return result;
     }
@@ -43,7 +43,7 @@ public class Database {
     public Person getPerson(int personID) {
         Person result = this.people.get(personID);
         if (result == null) {
-            System.out.println("ERROR :: Database getPerson :: person does not exist.\n");
+            System.out.println("ERROR :: Database getPerson :: person does not exist\n");
         }
         return result;
     }
@@ -55,7 +55,7 @@ public class Database {
     public Room getRoom(int roomID) {
         Room result = this.rooms.get(roomID);
         if (result == null) {
-            System.out.println("ERROR :: Database getRoom :: room does not exist.\n");
+            System.out.println("ERROR :: Database getRoom :: room does not exist\n");
         }
         return result;
     }
