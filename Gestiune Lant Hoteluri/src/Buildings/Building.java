@@ -1,5 +1,7 @@
 package Buildings;
-public abstract class Building {
+
+import Services.Database;
+public class Building {
     protected int buildingID;
     protected int constructionYear;
     protected int locationID;
@@ -8,6 +10,8 @@ public abstract class Building {
         this.buildingID = buildingID;
         this.constructionYear = constructionYear;
         this.locationID = locationID;
+
+        Database.get().addBuilding(this);
     }
 
     public Building(Building building) {
@@ -31,5 +35,5 @@ public abstract class Building {
     public int getConstructionYear() { return this.constructionYear; }
     public int getLocationID() { return this.locationID; }
 
-    public abstract Building clone();
+    public Building clone() { return new Building(this); }
 }

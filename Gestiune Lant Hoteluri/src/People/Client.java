@@ -1,20 +1,28 @@
 package People;
 
+import Services.Database;
+
 public class Client extends Person {
 
-    public Client(String firstName, String middleName, String lastName, String emailAddress) {
-        super(firstName, middleName, lastName, emailAddress);
+    private int clientID;
+
+    public Client(int clientID) {
+        super(Database.get().getPerson(clientID));
+
+        this.clientID = clientID;
     }
 
     public Client(Client client) {
         super(client);
+
+        this.clientID = client.clientID;
     }
 
     @Override
     public String toString() {
-        return "Client ( ID=" + super.personID + " FULL_NAME="
+        return "Client ( ID=" + this.clientID + " FULL_NAME="
                 + super.firstName + " " + super.middleName + " " + super.lastName
-                + " EMAIL=" + super.emailAddress + " )";
+                + " EMAIL=" + super.emailAddress + " )\n";
     }
 
     @Override

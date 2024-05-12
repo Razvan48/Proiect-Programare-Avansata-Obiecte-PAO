@@ -1,18 +1,20 @@
 package Rooms;
 
+import Services.Database;
+
 public class DoubleRoom extends Room
 {
-    public DoubleRoom(int roomNumber, int floor) {
-        super(roomNumber, floor);
+    private int doubleRoomID;
+    public DoubleRoom(int doubleRoomID) {
+        super(Database.get().getRoom(doubleRoomID));
+
+        this.doubleRoomID = doubleRoomID;
     }
 
-    public DoubleRoom(DoubleRoom room) {
-        super(room);
-    }
+    public DoubleRoom(DoubleRoom doubleRoom) {
+        super(doubleRoom);
 
-    @Override
-    public double getPrice() {
-        return 2.0 * pricePerPerson;
+        this.doubleRoomID = doubleRoom.doubleRoomID;
     }
 
     @Override

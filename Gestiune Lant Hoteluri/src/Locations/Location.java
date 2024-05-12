@@ -21,6 +21,6 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location ( ID=" + this.locationID + " ADDR=" + this.address + " )";
+        return "Location ( ID=" + this.locationID + " ADDR=" + this.address + " )\n";
     }
 }

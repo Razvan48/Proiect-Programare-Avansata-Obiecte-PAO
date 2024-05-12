@@ -1,19 +1,14 @@
 package People;
 
-public abstract class Person {
-    private static int personIDGenerator = 0;
-
+public class Person {
     protected final int personID;
-
     protected String firstName;
     protected String middleName;
     protected String lastName;
     protected String emailAddress;
 
-    public Person(String firstName, String middleName, String lastName, String emailAddress) {
-        ++personIDGenerator;
-
-        this.personID = personIDGenerator;
+    public Person(int personID, String firstName, String middleName, String lastName, String emailAddress) {
+        this.personID = personID;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -41,8 +36,8 @@ public abstract class Person {
     public String toString() {
         return "Person ( ID=" + this.personID + " FULL_NAME="
                 + this.firstName + " " + this.middleName + " " + this.lastName
-                + " EMAIL=" + this.emailAddress + " )";
+                + " EMAIL=" + this.emailAddress + " )\n";
     }
 
-    public abstract Person clone();
+    public Person clone() { return new Person(this); };
 }

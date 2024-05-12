@@ -24,6 +24,6 @@ public class Facility {
 
     @Override
     public String toString() {
-        return "Facility ( ID=" + this.facilityID + " DESC=" + this.description + " )";
+        return "Facility ( ID=" + this.facilityID + " DESC=" + this.description + " )\n";
     }
 }
