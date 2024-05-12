@@ -1,0 +1,96 @@
+#Create Tables
+
+CREATE TABLE location
+(
+    locationID INT(10) PRIMARY KEY,
+    address VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE facility
+(
+    facilityID INT(10) PRIMARY KEY,
+    description VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE building
+(
+    buildingID INT(10) PRIMARY KEY,
+    constructionYear INT(10),
+    locationID INT(10) NOT NULL,
+
+    FOREIGN KEY (locationID) REFERENCES location(locationID)
+);
+
+CREATE TABLE hotel
+(
+    hotelID INT(10) PRIMARY KEY REFERENCES building(buildingID),
+    hotelName VARCHAR(50) NOT NULL,
+    numStars INT(1) UNSIGNED,
+
+    CHECK (1 <= numStars AND numStars <= 5)
+);
+
+CREATE TABLE restaurant
+(
+    restaurantID INT(10) PRIMARY KEY REFERENCES building(buildingID),
+    restaurantName VARCHAR(50) NOT NULL,
+    numStars INT(1) UNSIGNED,
+
+    CHECK (1 <= numStars AND numStars <= 5)
+);
+
+CREATE TABLE person
+(
+    personID INT(10) PRIMARY KEY,
+    firstName VARCHAR(50) NOT NULL,
+    middleName VARCHAR(50),
+    lastName VARCHAR(50) NOT NULL,
+    emailAddress VARCHAR(50)
+);
+
+CREATE TABLE client
+(
+    clientID INT(10) PRIMARY KEY REFERENCES person(personID)
+);
+
+CREATE TABLE employee
+(
+    employeeID INT(10) PRIMARY KEY REFERENCES person(personID),
+    montlySalary INT(10) UNSIGNED NOT NULL,
+    age INT(3) UNSIGNED NOT NULL,
+    occupation VARCHAR(50) NOT NULL,
+
+    CHECK (18 <= age)
+);
+
+CREATE TABLE room
+(
+    roomID INT(10) PRIMARY KEY,
+    hotelID INT(10) NOT NULL,
+    roomNumber INT(10) UNSIGNED NOT NULL,
+    floor INT(10) UNSIGNED NOT NULL,
+    price DECIMAL(10, 10) UNSIGNED NOT NULL,
+
+    FOREIGN KEY (hotelID) REFERENCES hotel(hotelID),
+
+    CHECK (1 <= roomNumber)
+);
+
+CREATE TABLE singleRoom
+(
+    singleRoomID INT(10) PRIMARY KEY REFERENCES room(roomID)
+);
+
+CREATE TABLE doubleRoom
+(
+    doubleRoomID INT(10) PRIMARY KEY REFERENCES room(roomID)
+);
+
+CREATE TABLE tripleRoom
+(
+    tripleRoomID INT(10) PRIMARY KEY REFERENCES room(roomID)
+);
+
+COMMIT;
+
+

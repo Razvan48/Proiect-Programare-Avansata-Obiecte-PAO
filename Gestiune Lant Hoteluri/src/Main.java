@@ -1,8 +1,37 @@
 import Services.Menu;
 
+import java.sql.*;
+
 public class Main {
+    private static void loadDriver() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        }
+        catch (ClassNotFoundException e) {
+            System.out.println("FAILED -> loadDriver()");
+            e.printStackTrace();
+        }
+    }
+
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/GestiuneLantHoteluri";
+    private static final String DATABASE_USER = "root";
+    private static final String DATABASE_PASSWORD = "root";
+
+    private static Connection connection;
+    private static void createConnection() {
+        try {
+            connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
+        }
+        catch (SQLException e) {
+            System.out.println("FAILED -> createConnection()");
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         //Menu.get().run();
+        loadDriver();
+        createConnection();
     }
 }
 

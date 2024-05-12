@@ -7,13 +7,14 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Hotel extends Building {
+
+    private int hotelID;
     private String hotelName;
     private int numStars;
     private Map<Integer, Room> rooms;
     private Map<Integer, Employee> employees;
 
-    public Hotel(int constructionYear, String hotelName, int numStars) {
-        super(constructionYear);
+    public Hotel(int hotelID, String hotelName, int numStars) {
 
         this.hotelName = hotelName;
         this.numStars = numStars;

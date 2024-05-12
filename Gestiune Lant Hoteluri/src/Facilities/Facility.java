@@ -1,16 +1,11 @@
 package Facilities;
 
 public class Facility {
-
-    private static int facilityIDGenerator = 0;
-
     private final int facilityID;
     private String description;
 
-    public Facility(String description) {
-        ++facilityIDGenerator;
-
-        this.facilityID = facilityIDGenerator;
+    public Facility(int facilityID, String description) {
+        this.facilityID = facilityID;
         this.description = description;
     }
 

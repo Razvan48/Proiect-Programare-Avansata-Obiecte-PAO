@@ -1,14 +1,16 @@
 package Locations;
 public class Location {
-    private static int locationIDGenerator = 0;
     private final int locationID;
     private String address;
 
-    Location(String address) {
-        ++locationIDGenerator;
-
-        this.locationID = locationIDGenerator;
+    public Location(int locationID, String address) {
+        this.locationID = locationID;
         this.address = address;
+    }
+
+    public Location(Location location) {
+        this.locationID = location.locationID;
+        this.address = location.address;
     }
 
     public int getLocationID() { return this.locationID; }

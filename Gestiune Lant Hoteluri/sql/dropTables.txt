@@ -1,0 +1,17 @@
+#Drop Tables
+
+DROP TABLE tripleRoom;
+DROP TABLE doubleRoom;
+DROP TABLE singleRoom;
+DROP TABLE room;
+DROP TABLE employee;
+DROP TABLE client;
+DROP TABLE person;
+DROP TABLE restaurant;
+DROP TABLE hotel;
+DROP TABLE building;
+DROP TABLE facility;
+DROP TABLE location;
+
+COMMIT;
+
