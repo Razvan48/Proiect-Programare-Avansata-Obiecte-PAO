@@ -69,7 +69,7 @@ CREATE TABLE room
     hotelID INT(10) NOT NULL,
     roomNumber INT(10) UNSIGNED NOT NULL,
     floor INT(10) UNSIGNED NOT NULL,
-    price DECIMAL(10, 10) UNSIGNED NOT NULL,
+    price DECIMAL(20, 10) UNSIGNED NOT NULL,
 
     FOREIGN KEY (hotelID) REFERENCES hotel(hotelID),
 

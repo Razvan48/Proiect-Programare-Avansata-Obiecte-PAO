@@ -1,18 +1,20 @@
 package Rooms;
 
-import Services.Database;
+import Services.DatabaseGetter;
 import Services.Setup;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class DoubleRoom extends Room
 {
     private int doubleRoomID;
-    public DoubleRoom(int doubleRoomID) {
-        super(Database.get().getRoom(doubleRoomID));
-
+    public DoubleRoom(int doubleRoomID) throws SQLException {
+        super(DatabaseGetter.get().getRoom(doubleRoomID));
         this.doubleRoomID = doubleRoomID;
     }
 
@@ -35,23 +37,53 @@ public class DoubleRoom extends Room
     public int getDoubleRoomID() { return this.doubleRoomID; }
 
     @Override
-    public int create(Room room) throws SQLException {
-        DoubleRoom doubleRoom = (DoubleRoom) room;
+    public void inputForCreate() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("doubleRoomID=");
+        this.doubleRoomID = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public void inputForRead() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("doubleRoomID=");
+        this.doubleRoomID = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public void inputForUpdate() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("doubleRoomID=");
+        this.doubleRoomID = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public void inputForDelete() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("doubleRoomID=");
+        this.doubleRoomID = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public int create() throws SQLException {
         final String create = "INSERT INTO doubleRoom(doubleRoomID) VALUES (?)";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(create);
-        preparedStatement.setInt(1, doubleRoom.getDoubleRoomID());
+        preparedStatement.setInt(1, this.getDoubleRoomID());
 
         return preparedStatement.executeUpdate();
     }
 
     @Override
-    public DoubleRoom read(Room room) throws SQLException {
-        DoubleRoom doubleRoom = (DoubleRoom) room;
+    public DoubleRoom read() throws SQLException {
         final String read = "SELECT * FROM doubleRoom WHERE doubleRoomID = ?";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(read);
-        preparedStatement.setInt(1, doubleRoom.getDoubleRoomID());
+        preparedStatement.setInt(1, this.getDoubleRoomID());
 
         ResultSet rs = preparedStatement.executeQuery();
 
@@ -65,24 +97,37 @@ public class DoubleRoom extends Room
     }
 
     @Override
-    public int update(Room room) throws SQLException {
-        DoubleRoom doubleRoom = (DoubleRoom) room;
+    public int update() throws SQLException {
         final String update = "UPDATE doubleRoom SET doubleRoomID = ? WHERE doubleRoomID = ?";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(update);
-        preparedStatement.setInt(1, doubleRoom.getDoubleRoomID());
+        preparedStatement.setInt(1, this.getDoubleRoomID());
 
         return preparedStatement.executeUpdate();
     }
 
     @Override
-    public int delete(Room room) throws SQLException {
-        DoubleRoom doubleRoom = (DoubleRoom) room;
+    public int delete() throws SQLException {
         final String delete = "DELETE FROM doubleRoom WHERE doubleRoomID = ?";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(delete);
-        preparedStatement.setInt(1, doubleRoom.getDoubleRoomID());
+        preparedStatement.setInt(1, this.getDoubleRoomID());
 
         return preparedStatement.executeUpdate();
+    }
+
+    public static List<DoubleRoom> readAllDoubleRooms() throws SQLException {
+        final String readAll = "SELECT * FROM doubleRoom";
+
+        List<DoubleRoom> doubleRoomList = new ArrayList<DoubleRoom>();
+
+        PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(readAll);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            doubleRoomList.add(new DoubleRoom(rs.getInt("doubleRoomID")));
+        }
+
+        return doubleRoomList;
     }
 }

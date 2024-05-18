@@ -1,20 +1,58 @@
+import Buildings.*;
 import Facilities.Facility;
-import Services.Database;
+import Rooms.*;
+
+import Services.DatabaseGetter;
 import Services.Setup;
 
 import java.sql.*;
 
+import Locations.*;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Setup.get();
 
         Facility facility = new Facility(1, "description");
         try {
-            facility.create(facility);
+            facility.create();
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
+
+        Location location = new Location(2, "locatie");
+        try {
+            location.create();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        Building building = new Building(1, 1900, 1);
+        building.create();
+
+        Hotel hotel = new Hotel(1, "hotel", 1);
+        hotel.create();
+
+
+
+        Room room = new Room(4, 1, 1, 1, 1.0);
+        try {
+            room.create();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        SingleRoom singleRoom = new SingleRoom(1);
+        try {
+            singleRoom.create();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }
 

@@ -1,6 +1,6 @@
 package Buildings;
 
-import Services.Database;
+import Services.DatabaseGetter;
 import People.Employee;
 import Rooms.Room;
 import Services.Setup;
@@ -8,34 +8,26 @@ import Services.Setup;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Hotel extends Building {
 
     private int hotelID;
     private String hotelName;
     private int numStars;
-    private Map<Integer, Room> rooms;
-    private Map<Integer, Employee> employees;
 
-    public Hotel(int hotelID, String hotelName, int numStars) {
-        super(Database.get().getBuilding(hotelID));
+    public Hotel(int hotelID, String hotelName, int numStars) throws SQLException {
+        super(DatabaseGetter.get().getBuilding(hotelID));
+        this.hotelID = hotelID;
         this.hotelName = hotelName;
         this.numStars = numStars;
-
-        this.rooms = new TreeMap<Integer, Room>();
-        this.employees = new TreeMap<Integer, Employee>();
     }
 
     public Hotel(Hotel hotel) {
         super(hotel);
-
+        this.hotelID = hotel.hotelID;
         this.hotelName = hotel.hotelName;
         this.numStars = hotel.numStars;
-
-        this.rooms = new TreeMap<Integer, Room>(hotel.rooms);
-        this.employees = new TreeMap<Integer, Employee>(hotel.employees);
     }
 
     @Override
@@ -44,72 +36,78 @@ public class Hotel extends Building {
                 + " CONSTR_YEAR=" + super.constructionYear + " LOCATION_ID=" + super.locationID
                 + " HOTEL_NAME=" + this.hotelName + " NUM_STARS="+ this.numStars + " )\n");
 
-        result.append("Rooms (\n");
-        for (Room room : this.rooms.values()) {
-            result.append("\t").append(room.toString());
-        }
-
-        result.append(")\n");
-
-        result.append("Employees (\n");
-        for (Employee employee : this.employees.values()) {
-            result.append("\t").append(employee.toString());
-        }
-
-        result.append(")\n");
-
         return result.toString();
     }
 
     public int getHotelID() { return this.hotelID; }
     public String getHotelName() { return this.hotelName; }
     public int getNumStars() { return this.numStars; }
-    public void addRoom(Room room) {
-        this.rooms.put(room.getRoomID(), room);
-    }
-    public void addEmployee(Employee employee) { this.employees.put(employee.getEmployeeID(), employee); };
-
-    public String displayRoom(int roomID) {
-        if (this.rooms.containsKey(roomID)) {
-            return this.rooms.get(roomID).toString();
-        }
-        else {
-            return "ERROR :: Hotel displayRoom :: room does not exist\n";
-        }
-    }
-
-    public String displayEmployee(int employeeID) {
-        if (this.employees.containsKey(employeeID)) {
-            return this.employees.get(employeeID).toString();
-        }
-        else {
-            return "ERROR :: Hotel displayEmployee :: employee does not exist\n";
-        }
-    }
 
     @Override
     public Hotel clone() { return new Hotel(this); }
 
     @Override
-    public int create(Building building) throws SQLException {
-        Hotel hotel = (Hotel) building;
+    public void inputForCreate() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("hotelID=");
+        this.hotelID = scanner.nextInt();
+        System.out.println("\n");
+        System.out.println("hotelName=");
+        this.hotelName = scanner.nextLine();
+        System.out.println("\n");
+        System.out.println("numStars=");
+        this.numStars = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public void inputForRead() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("hotelID=");
+        this.hotelID = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public void inputForUpdate() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("hotelID=");
+        this.hotelID = scanner.nextInt();
+        System.out.println("\n");
+        System.out.println("hotelName=");
+        this.hotelName = scanner.nextLine();
+        System.out.println("\n");
+        System.out.println("numStars=");
+        this.numStars = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public void inputForDelete() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("hotelID=");
+        this.hotelID = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public int create() throws SQLException {
         final String create = "INSERT INTO hotel(hotelID, hotelName, numStars) VALUES (?, ?, ?)";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(create);
-        preparedStatement.setInt(1, hotel.getHotelID());
-        preparedStatement.setString(2, hotel.getHotelName());
-        preparedStatement.setInt(3, hotel.getNumStars());
+        preparedStatement.setInt(1, this.getHotelID());
+        preparedStatement.setString(2, this.getHotelName());
+        preparedStatement.setInt(3, this.getNumStars());
 
         return preparedStatement.executeUpdate();
     }
 
     @Override
-    public Hotel read(Building building) throws SQLException {
-        Hotel hotel = (Hotel) building;
+    public Hotel read() throws SQLException {
         final String read = "SELECT * FROM hotel WHERE hotelID = ?";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(read);
-        preparedStatement.setInt(1, hotel.getHotelID());
+        preparedStatement.setInt(1, this.getHotelID());
 
         ResultSet rs = preparedStatement.executeQuery();
 
@@ -124,27 +122,41 @@ public class Hotel extends Building {
     }
 
     @Override
-    public int update(Building building) throws SQLException {
-        Hotel hotel = (Hotel) building;
+    public int update() throws SQLException {
         final String update = "UPDATE hotel SET hotelID = ?, hotelName = ?, numStars = ? WHERE hotelID = ?";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(update);
-        preparedStatement.setInt(1, hotel.getHotelID());
-        preparedStatement.setString(2, hotel.getHotelName());
-        preparedStatement.setInt(3, hotel.getNumStars());
-        preparedStatement.setInt(4, hotel.getHotelID());
+        preparedStatement.setInt(1, this.getHotelID());
+        preparedStatement.setString(2, this.getHotelName());
+        preparedStatement.setInt(3, this.getNumStars());
+        preparedStatement.setInt(4, this.getHotelID());
 
         return preparedStatement.executeUpdate();
     }
 
     @Override
-    public int delete(Building building) throws SQLException {
-        Hotel hotel = (Hotel) building;
+    public int delete() throws SQLException {
         final String delete = "DELETE FROM hotel WHERE hotelID = ?";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(delete);
-        preparedStatement.setInt(1, hotel.getHotelID());
+        preparedStatement.setInt(1, this.getHotelID());
 
         return preparedStatement.executeUpdate();
+    }
+
+    public static List<Hotel> readAllHotels() throws SQLException {
+        final String readAll = "SELECT * FROM hotel";
+
+        List<Hotel> hotelList = new ArrayList<Hotel>();
+
+        PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(readAll);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            hotelList.add(new Hotel(rs.getInt("hotelID"), rs.getString("hotelName"),
+                    rs.getInt("numStars")));
+        }
+
+        return hotelList;
     }
 }

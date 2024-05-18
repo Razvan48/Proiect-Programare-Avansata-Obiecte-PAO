@@ -1,13 +1,14 @@
 package Buildings;
 
-import Services.Database;
-
 import Crud.CRUD;
 import Services.Setup;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Building implements CRUD<Building> {
     protected int buildingID;
@@ -18,8 +19,6 @@ public class Building implements CRUD<Building> {
         this.buildingID = buildingID;
         this.constructionYear = constructionYear;
         this.locationID = locationID;
-
-        Database.get().addBuilding(this);
     }
 
     public Building(Building building) {
@@ -46,22 +45,63 @@ public class Building implements CRUD<Building> {
     public Building clone() { return new Building(this); }
 
     @Override
-    public int create(Building building) throws SQLException {
+    public void inputForCreate() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("constructionYear=");
+        this.constructionYear = scanner.nextInt();
+        System.out.println("\n");
+        System.out.println("locationID=");
+        this.locationID = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public void inputForRead() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("buildingID=");
+        this.buildingID = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public void inputForUpdate() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("buildingID=");
+        this.buildingID = scanner.nextInt();
+        System.out.println("\n");
+        System.out.println("constructionYear=");
+        this.constructionYear = scanner.nextInt();
+        System.out.println("\n");
+        System.out.println("locationID=");
+        this.locationID = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public void inputForDelete() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("buildingID=");
+        this.buildingID = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public int create() throws SQLException {
         final String create = "INSERT INTO building(constructionYear, locationID) VALUES (?, ?)";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(create);
-        preparedStatement.setInt(1, building.getConstructionYear());
-        preparedStatement.setInt(2, building.getLocationID());
+        preparedStatement.setInt(1, this.getConstructionYear());
+        preparedStatement.setInt(2, this.getLocationID());
 
         return preparedStatement.executeUpdate();
     }
 
     @Override
-    public Building read(Building building) throws SQLException {
+    public Building read() throws SQLException {
         final String read = "SELECT * FROM building WHERE buildingID = ?";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(read);
-        preparedStatement.setInt(1, building.getBuildingID());
+        preparedStatement.setInt(1, this.getBuildingID());
 
         ResultSet rs = preparedStatement.executeQuery();
 
@@ -76,24 +116,40 @@ public class Building implements CRUD<Building> {
     }
 
     @Override
-    public int update(Building building) throws SQLException {
+    public int update() throws SQLException {
         final String update = "UPDATE building SET constructionYear = ?, locationID = ? WHERE buildingID = ?";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(update);
-        preparedStatement.setInt(1, building.getConstructionYear());
-        preparedStatement.setInt(2, building.getLocationID());
-        preparedStatement.setInt(3, building.getBuildingID());
+        preparedStatement.setInt(1, this.getConstructionYear());
+        preparedStatement.setInt(2, this.getLocationID());
+        preparedStatement.setInt(3, this.getBuildingID());
 
         return preparedStatement.executeUpdate();
     }
 
     @Override
-    public int delete(Building building) throws SQLException {
+    public int delete() throws SQLException {
         final String delete = "DELETE FROM building WHERE buildingID = ?";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(delete);
-        preparedStatement.setInt(1, building.getBuildingID());
+        preparedStatement.setInt(1, this.getBuildingID());
 
         return preparedStatement.executeUpdate();
+    }
+
+    public static List<Building> readAllBuildings() throws SQLException {
+        final String readAll = "SELECT * FROM building";
+
+        List<Building> buildingList = new ArrayList<Building>();
+
+        PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(readAll);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            buildingList.add(new Building(rs.getInt("buildingID"), rs.getInt("constructionYear"),
+                    rs.getInt("locationID")));
+        }
+
+        return buildingList;
     }
 }

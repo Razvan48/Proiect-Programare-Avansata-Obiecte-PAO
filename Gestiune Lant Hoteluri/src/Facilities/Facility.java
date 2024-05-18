@@ -1,12 +1,16 @@
 package Facilities;
 
+import Buildings.Building;
 import Crud.CRUD;
 import Services.Setup;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Facility implements CRUD<Facility> {
-    private final int facilityID;
+    private int facilityID;
     private String description;
 
     public Facility(int facilityID, String description) {
@@ -33,21 +37,56 @@ public class Facility implements CRUD<Facility> {
     }
 
     @Override
-    public int create(Facility facility) throws SQLException {
+    public void inputForCreate() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("description=");
+        this.description = scanner.nextLine();
+        System.out.println("\n");
+    }
+
+    @Override
+    public void inputForRead() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("facilityID=");
+        this.facilityID = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public void inputForUpdate() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("facilityID=");
+        this.facilityID = scanner.nextInt();
+        System.out.println("\n");
+        System.out.println("description=");
+        this.description = scanner.nextLine();
+        System.out.println("\n");
+    }
+
+    @Override
+    public void inputForDelete() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("facilityID=");
+        this.facilityID = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public int create() throws SQLException {
         final String create = "INSERT INTO facility(description) VALUES (?)";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(create);
-        preparedStatement.setString(1, facility.getDescription());
+        preparedStatement.setString(1, this.getDescription());
 
         return preparedStatement.executeUpdate();
     }
 
     @Override
-    public Facility read(Facility facility) throws SQLException {
+    public Facility read() throws SQLException {
         final String read = "SELECT * FROM facility WHERE facilityID = ?";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(read);
-        preparedStatement.setInt(1, facility.getFacilityID());
+        preparedStatement.setInt(1, this.getFacilityID());
 
         ResultSet rs = preparedStatement.executeQuery();
 
@@ -61,23 +100,38 @@ public class Facility implements CRUD<Facility> {
     }
 
     @Override
-    public int update(Facility facility) throws SQLException {
+    public int update() throws SQLException {
         final String update = "UPDATE facility SET description = ? WHERE facilityID = ?";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(update);
-        preparedStatement.setString(1, facility.getDescription());
-        preparedStatement.setInt(2, facility.getFacilityID());
+        preparedStatement.setString(1, this.getDescription());
+        preparedStatement.setInt(2, this.getFacilityID());
 
         return preparedStatement.executeUpdate();
     }
 
     @Override
-    public int delete(Facility facility) throws SQLException {
+    public int delete() throws SQLException {
         final String delete = "DELETE FROM facility WHERE facilityID = ?";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(delete);
-        preparedStatement.setInt(1, facility.getFacilityID());
+        preparedStatement.setInt(1, this.getFacilityID());
 
         return preparedStatement.executeUpdate();
+    }
+
+    public static List<Facility> readAllFacilities() throws SQLException {
+        final String readAll = "SELECT * FROM facility";
+
+        List<Facility> facilityList = new ArrayList<Facility>();
+
+        PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(readAll);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            facilityList.add(new Facility(rs.getInt("facilityID"), rs.getString("description")));
+        }
+
+        return facilityList;
     }
 }

@@ -5,28 +5,25 @@ import Facilities.Facility;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import Crud.CRUD;
+import People.Person;
 import Services.Setup;
 
 public class Room implements CRUD<Room> {
-    protected final int roomID;
+    protected int roomID;
     protected int hotelID;
     protected int roomNumber;
     protected int floor;
     protected double price;
-    Map<Integer, Facility> facilities;
 
-    Room(int roomID, int hotelID, int roomNumber, int floor, double price) {
+    public Room(int roomID, int hotelID, int roomNumber, int floor, double price) {
         this.roomID = roomID;
         this.hotelID = hotelID;
         this.roomNumber = roomNumber;
         this.floor = floor;
         this.price = price;
-
-        this.facilities = new TreeMap<Integer, Facility>();
     }
 
     public Room(Room room) {
@@ -35,12 +32,6 @@ public class Room implements CRUD<Room> {
         this.roomNumber = room.roomNumber;
         this.floor = room.floor;
         this.price = room.price;
-
-        this.facilities = new TreeMap<Integer, Facility>(room.facilities);
-    }
-
-    public void addFacility(Facility facility) {
-        this.facilities.put(facility.getFacilityID(), facility);
     }
 
     public int getRoomID() { return this.roomID; }
@@ -49,13 +40,6 @@ public class Room implements CRUD<Room> {
     public String toString() {
         StringBuilder result = new StringBuilder("Room ( ID=" + this.roomID + " HOTEL_ID=" + this.hotelID +
                 " ROOM_NUM=" + this.roomNumber + " FLOOR=" + this.floor + " PRICE=" + this.price + " )\n");
-
-        result.append("Facilities (\n");
-        for (Facility facility : this.facilities.values()) {
-            result.append("\t").append(facility.toString());
-        }
-
-        result.append(")\n");
 
         return result.toString();
     }
@@ -73,24 +57,77 @@ public class Room implements CRUD<Room> {
     public double getPrice() { return this.price; }
 
     @Override
-    public int create(Room room) throws SQLException {
+    public void inputForCreate() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("hotelID=");
+        this.hotelID = scanner.nextInt();
+        System.out.println("\n");
+        System.out.println("roomNumber=");
+        this.roomNumber = scanner.nextInt();
+        System.out.println("\n");
+        System.out.println("floor=");
+        this.floor = scanner.nextInt();
+        System.out.println("\n");
+        System.out.println("price=");
+        this.price = scanner.nextDouble();
+        System.out.println("\n");
+    }
+
+    @Override
+    public void inputForRead() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("roomID=");
+        this.roomID = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public void inputForUpdate() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("roomID=");
+        this.roomID = scanner.nextInt();
+        System.out.println("\n");
+        System.out.println("hotelID=");
+        this.hotelID = scanner.nextInt();
+        System.out.println("\n");
+        System.out.println("roomNumber=");
+        this.roomNumber = scanner.nextInt();
+        System.out.println("\n");
+        System.out.println("floor=");
+        this.floor = scanner.nextInt();
+        System.out.println("\n");
+        System.out.println("price=");
+        this.price = scanner.nextDouble();
+        System.out.println("\n");
+    }
+
+    @Override
+    public void inputForDelete() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("roomID=");
+        this.roomID = scanner.nextInt();
+        System.out.println("\n");
+    }
+
+    @Override
+    public int create() throws SQLException {
         final String create = "INSERT INTO room(hotelID, roomNumber, floor, price) VALUES (?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(create);
-        preparedStatement.setInt(1, room.getHotelID());
-        preparedStatement.setInt(2, room.getRoomNumber());
-        preparedStatement.setInt(3, room.getFloor());
-        preparedStatement.setDouble(4, room.getPrice());
+        preparedStatement.setInt(1, this.getHotelID());
+        preparedStatement.setInt(2, this.getRoomNumber());
+        preparedStatement.setInt(3, this.getFloor());
+        preparedStatement.setDouble(4, this.getPrice());
 
         return preparedStatement.executeUpdate();
     }
 
     @Override
-    public Room read(Room room) throws SQLException {
+    public Room read() throws SQLException {
         final String read = "SELECT * FROM room WHERE roomID = ?";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(read);
-        preparedStatement.setInt(1, room.getRoomID());
+        preparedStatement.setInt(1, this.getRoomID());
 
         ResultSet rs = preparedStatement.executeQuery();
 
@@ -105,26 +142,42 @@ public class Room implements CRUD<Room> {
     }
 
     @Override
-    public int update(Room room) throws SQLException {
+    public int update() throws SQLException {
         final String update = "UPDATE room SET hotelID = ?, roomNumber = ?, floor = ?, price = ? WHERE roomID = ?";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(update);
-        preparedStatement.setInt(1, room.getHotelID());
-        preparedStatement.setInt(2, room.getRoomNumber());
-        preparedStatement.setInt(3, room.getFloor());
-        preparedStatement.setDouble(4, room.getPrice());
-        preparedStatement.setInt(5, room.getRoomID());
+        preparedStatement.setInt(1, this.getHotelID());
+        preparedStatement.setInt(2, this.getRoomNumber());
+        preparedStatement.setInt(3, this.getFloor());
+        preparedStatement.setDouble(4, this.getPrice());
+        preparedStatement.setInt(5, this.getRoomID());
 
         return preparedStatement.executeUpdate();
     }
 
     @Override
-    public int delete(Room room) throws SQLException {
+    public int delete() throws SQLException {
         final String delete = "DELETE FROM room WHERE roomID = ?";
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(delete);
-        preparedStatement.setInt(1, room.getRoomID());
+        preparedStatement.setInt(1, this.getRoomID());
 
         return preparedStatement.executeUpdate();
+    }
+
+    public static List<Room> readAllRooms() throws SQLException {
+        final String readAll = "SELECT * FROM room";
+
+        List<Room> roomList = new ArrayList<Room>();
+
+        PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(readAll);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            roomList.add(new Room(rs.getInt("roomID"), rs.getInt("hotelID"),
+                    rs.getInt("roomNumber"), rs.getInt("floor"), rs.getDouble("price")));
+        }
+
+        return roomList;
     }
 }
