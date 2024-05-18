@@ -50,6 +50,7 @@ public class Location implements CRUD<Location> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("locationID=");
         this.locationID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -58,6 +59,7 @@ public class Location implements CRUD<Location> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("locationID=");
         this.locationID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("address=");
         this.address = scanner.nextLine();
@@ -69,6 +71,7 @@ public class Location implements CRUD<Location> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("locationID=");
         this.locationID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 

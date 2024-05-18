@@ -18,6 +18,10 @@ public class Room implements CRUD<Room> {
     protected int floor;
     protected double price;
 
+    public Room() {
+
+    }
+
     public Room(int roomID, int hotelID, int roomNumber, int floor, double price) {
         this.roomID = roomID;
         this.hotelID = hotelID;
@@ -61,15 +65,19 @@ public class Room implements CRUD<Room> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("hotelID=");
         this.hotelID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("roomNumber=");
         this.roomNumber = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("floor=");
         this.floor = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("price=");
         this.price = scanner.nextDouble();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -78,6 +86,7 @@ public class Room implements CRUD<Room> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("roomID=");
         this.roomID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -86,18 +95,23 @@ public class Room implements CRUD<Room> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("roomID=");
         this.roomID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("hotelID=");
         this.hotelID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("roomNumber=");
         this.roomNumber = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("floor=");
         this.floor = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("price=");
         this.price = scanner.nextDouble();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -106,6 +120,7 @@ public class Room implements CRUD<Room> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("roomID=");
         this.roomID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 

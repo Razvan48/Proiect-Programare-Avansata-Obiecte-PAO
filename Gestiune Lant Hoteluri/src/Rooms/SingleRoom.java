@@ -17,7 +17,6 @@ public class SingleRoom extends Room
     private int singleRoomID;
 
     public SingleRoom(int singleRoomID) throws SQLException {
-        super(DatabaseGetter.get().getRoom(singleRoomID));
         this.singleRoomID = singleRoomID;
     }
 
@@ -29,7 +28,7 @@ public class SingleRoom extends Room
 
     @Override
     public String toString() {
-        return "Single " + super.toString();
+        return "SingleRoom ( ID =" + this.singleRoomID + " )\n";
     }
 
     @Override
@@ -44,6 +43,7 @@ public class SingleRoom extends Room
         Scanner scanner = new Scanner(System.in);
         System.out.println("singleRoomID=");
         this.singleRoomID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -52,6 +52,7 @@ public class SingleRoom extends Room
         Scanner scanner = new Scanner(System.in);
         System.out.println("singleRoomID=");
         this.singleRoomID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -60,6 +61,7 @@ public class SingleRoom extends Room
         Scanner scanner = new Scanner(System.in);
         System.out.println("singleRoomID=");
         this.singleRoomID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -68,6 +70,7 @@ public class SingleRoom extends Room
         Scanner scanner = new Scanner(System.in);
         System.out.println("singleRoomID=");
         this.singleRoomID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 

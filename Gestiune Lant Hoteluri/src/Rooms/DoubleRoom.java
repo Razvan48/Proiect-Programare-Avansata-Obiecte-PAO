@@ -14,7 +14,6 @@ public class DoubleRoom extends Room
 {
     private int doubleRoomID;
     public DoubleRoom(int doubleRoomID) throws SQLException {
-        super(DatabaseGetter.get().getRoom(doubleRoomID));
         this.doubleRoomID = doubleRoomID;
     }
 
@@ -25,9 +24,7 @@ public class DoubleRoom extends Room
     }
 
     @Override
-    public String toString() {
-        return "Double " + super.toString();
-    }
+    public String toString() { return "DoubleRoom ( ID =" + this.doubleRoomID + " )\n"; }
 
     @Override
     public DoubleRoom clone() {
@@ -41,6 +38,7 @@ public class DoubleRoom extends Room
         Scanner scanner = new Scanner(System.in);
         System.out.println("doubleRoomID=");
         this.doubleRoomID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -49,6 +47,7 @@ public class DoubleRoom extends Room
         Scanner scanner = new Scanner(System.in);
         System.out.println("doubleRoomID=");
         this.doubleRoomID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -57,6 +56,7 @@ public class DoubleRoom extends Room
         Scanner scanner = new Scanner(System.in);
         System.out.println("doubleRoomID=");
         this.doubleRoomID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -65,6 +65,7 @@ public class DoubleRoom extends Room
         Scanner scanner = new Scanner(System.in);
         System.out.println("doubleRoomID=");
         this.doubleRoomID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 

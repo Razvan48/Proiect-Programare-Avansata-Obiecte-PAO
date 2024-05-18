@@ -16,7 +16,6 @@ public class Client extends Person {
     private int clientID;
 
     public Client(int clientID) throws SQLException {
-        super(DatabaseGetter.get().getPerson(clientID));
         this.clientID = clientID;
     }
 
@@ -28,9 +27,7 @@ public class Client extends Person {
 
     @Override
     public String toString() {
-        return "Client ( ID=" + this.clientID + " FULL_NAME="
-                + super.firstName + " " + super.middleName + " " + super.lastName
-                + " EMAIL=" + super.emailAddress + " )\n";
+        return "Client ( ID=" + this.clientID + " )\n";
     }
 
     public int getClientID() { return this.clientID; }
@@ -43,6 +40,7 @@ public class Client extends Person {
         Scanner scanner = new Scanner(System.in);
         System.out.println("clientID=");
         this.clientID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -51,6 +49,7 @@ public class Client extends Person {
         Scanner scanner = new Scanner(System.in);
         System.out.println("clientID=");
         this.clientID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -59,6 +58,7 @@ public class Client extends Person {
         Scanner scanner = new Scanner(System.in);
         System.out.println("clientID=");
         this.clientID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -67,6 +67,7 @@ public class Client extends Person {
         Scanner scanner = new Scanner(System.in);
         System.out.println("clientID=");
         this.clientID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 

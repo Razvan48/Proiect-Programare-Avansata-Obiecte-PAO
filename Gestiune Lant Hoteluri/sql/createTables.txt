@@ -23,20 +23,22 @@ CREATE TABLE building
 
 CREATE TABLE hotel
 (
-    hotelID INT(10) PRIMARY KEY REFERENCES building(buildingID),
+    hotelID INT(10) PRIMARY KEY,
     hotelName VARCHAR(50) NOT NULL,
     numStars INT(1) UNSIGNED,
 
-    CHECK (1 <= numStars AND numStars <= 5)
+    CHECK (1 <= numStars AND numStars <= 5),
+    FOREIGN KEY (hotelID) REFERENCES building(buildingID)
 );
 
 CREATE TABLE restaurant
 (
-    restaurantID INT(10) PRIMARY KEY REFERENCES building(buildingID),
+    restaurantID INT(10) PRIMARY KEY,
     restaurantName VARCHAR(50) NOT NULL,
     numStars INT(1) UNSIGNED,
 
-    CHECK (1 <= numStars AND numStars <= 5)
+    CHECK (1 <= numStars AND numStars <= 5),
+    FOREIGN KEY (restaurantID) REFERENCES building(buildingID)
 );
 
 CREATE TABLE person
@@ -50,17 +52,20 @@ CREATE TABLE person
 
 CREATE TABLE client
 (
-    clientID INT(10) PRIMARY KEY REFERENCES person(personID)
+    clientID INT(10) PRIMARY KEY,
+
+    FOREIGN KEY (clientID) REFERENCES person(personID)
 );
 
 CREATE TABLE employee
 (
-    employeeID INT(10) PRIMARY KEY REFERENCES person(personID),
+    employeeID INT(10) PRIMARY KEY,
     montlySalary DECIMAL(10, 10) UNSIGNED NOT NULL,
     age INT(3) UNSIGNED NOT NULL,
     occupation VARCHAR(50) NOT NULL,
 
-    CHECK (18 <= age)
+    CHECK (18 <= age),
+    FOREIGN KEY (employeeID) REFERENCES person(personID)
 );
 
 CREATE TABLE room
@@ -78,17 +83,23 @@ CREATE TABLE room
 
 CREATE TABLE singleRoom
 (
-    singleRoomID INT(10) PRIMARY KEY REFERENCES room(roomID)
+    singleRoomID INT(10) PRIMARY KEY,
+
+    FOREIGN KEY (singleRoomID) REFERENCES room(roomID)
 );
 
 CREATE TABLE doubleRoom
 (
-    doubleRoomID INT(10) PRIMARY KEY REFERENCES room(roomID)
+    doubleRoomID INT(10) PRIMARY KEY,
+
+    FOREIGN KEY (doubleRoomID) REFERENCES room(roomID)
 );
 
 CREATE TABLE tripleRoom
 (
-    tripleRoomID INT(10) PRIMARY KEY REFERENCES room(roomID)
+    tripleRoomID INT(10) PRIMARY KEY,
+
+    FOREIGN KEY (tripleRoomID) REFERENCES room(roomID)
 );
 
 COMMIT;

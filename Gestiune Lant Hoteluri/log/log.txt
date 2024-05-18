@@ -1,0 +1,8 @@
+Command                                                                                              | TimeWhen (ss:mm:hh DD:MM:YYYY)
+                                                                     
+
+
+Building ReadAll                                                                                     | 22:55:4 18/5/2024                                                                                   
+Location ReadAll                                                                                     | 22:55:8 18/5/2024                                                                                   
+Hotel Create                                                                                         | 22:55:18 18/5/2024                                                                                  
+Hotel ReadAll                                                                                        | 22:55:21 18/5/2024                                                                                  

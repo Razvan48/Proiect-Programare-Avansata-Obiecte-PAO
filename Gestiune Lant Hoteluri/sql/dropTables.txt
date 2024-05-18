@@ -15,5 +15,3 @@ DROP TABLE location;
 
 COMMIT;
 
-
-

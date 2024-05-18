@@ -49,6 +49,7 @@ public class Facility implements CRUD<Facility> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("facilityID=");
         this.facilityID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -57,6 +58,7 @@ public class Facility implements CRUD<Facility> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("facilityID=");
         this.facilityID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("description=");
         this.description = scanner.nextLine();
@@ -68,6 +70,7 @@ public class Facility implements CRUD<Facility> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("facilityID=");
         this.facilityID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 

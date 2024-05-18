@@ -17,7 +17,6 @@ public class Employee extends Person {
     private String occupation;
 
     public Employee(int employeeID, double monthlySalary, int age, String occupation) throws SQLException {
-        super(DatabaseGetter.get().getPerson(employeeID));
         this.employeeID = employeeID;
         this.monthlySalary = monthlySalary;
         this.age = age;
@@ -38,9 +37,7 @@ public class Employee extends Person {
 
     @Override
     public String toString() {
-        return "Employee ( ID=" + this.employeeID + " FULL_NAME="
-                + super.firstName + " " + super.middleName + " " + super.lastName
-                + " EMAIL=" + super.emailAddress + " MON_SALARY=" + this.monthlySalary
+        return "Employee ( ID=" + this.employeeID + " MON_SALARY=" + this.monthlySalary
                 + " AGE=" + this.age + " OCC=" + this.occupation + " )\n";
     }
 
@@ -52,12 +49,15 @@ public class Employee extends Person {
         Scanner scanner = new Scanner(System.in);
         System.out.println("employeeID=");
         this.employeeID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("monthlySalary=");
         this.monthlySalary = scanner.nextDouble();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("age=");
         this.age = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("occupation=");
         this.occupation = scanner.nextLine();
@@ -69,6 +69,7 @@ public class Employee extends Person {
         Scanner scanner = new Scanner(System.in);
         System.out.println("employeeID=");
         this.employeeID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -77,12 +78,15 @@ public class Employee extends Person {
         Scanner scanner = new Scanner(System.in);
         System.out.println("employeeID=");
         this.employeeID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("monthlySalary=");
         this.monthlySalary = scanner.nextDouble();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("age=");
         this.age = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("occupation=");
         this.occupation = scanner.nextLine();
@@ -94,6 +98,7 @@ public class Employee extends Person {
         Scanner scanner = new Scanner(System.in);
         System.out.println("employeeID=");
         this.employeeID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 

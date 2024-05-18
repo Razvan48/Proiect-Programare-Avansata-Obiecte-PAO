@@ -14,8 +14,6 @@ public class TripleRoom extends Room
 {
     private int tripleRoomID;
     public TripleRoom(int tripleRoomID) throws SQLException {
-        super(DatabaseGetter.get().getRoom(tripleRoomID));
-
         this.tripleRoomID = tripleRoomID;
     }
 
@@ -25,7 +23,7 @@ public class TripleRoom extends Room
     }
 
     @Override
-    public String toString() { return "Triple " + super.toString(); }
+    public String toString() { return "TripleRoom ( ID =" + this.tripleRoomID + " )\n"; }
 
     @Override
     public TripleRoom clone() {
@@ -39,6 +37,7 @@ public class TripleRoom extends Room
         Scanner scanner = new Scanner(System.in);
         System.out.println("tripleRoomID=");
         this.tripleRoomID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -47,6 +46,7 @@ public class TripleRoom extends Room
         Scanner scanner = new Scanner(System.in);
         System.out.println("tripleRoomID=");
         this.tripleRoomID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -55,6 +55,7 @@ public class TripleRoom extends Room
         Scanner scanner = new Scanner(System.in);
         System.out.println("tripleRoomID=");
         this.tripleRoomID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -63,6 +64,7 @@ public class TripleRoom extends Room
         Scanner scanner = new Scanner(System.in);
         System.out.println("tripleRoomID=");
         this.tripleRoomID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 

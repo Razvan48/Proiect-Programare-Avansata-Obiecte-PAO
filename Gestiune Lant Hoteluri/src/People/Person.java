@@ -17,6 +17,10 @@ public class Person implements CRUD<Person> {
     protected String lastName;
     protected String emailAddress;
 
+    public Person() {
+
+    }
+
     public Person(int personID, String firstName, String middleName, String lastName, String emailAddress) {
         this.personID = personID;
         this.firstName = firstName;
@@ -73,6 +77,7 @@ public class Person implements CRUD<Person> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("personID=");
         this.personID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -81,6 +86,7 @@ public class Person implements CRUD<Person> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("personID=");
         this.personID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("firstName=");
         this.firstName = scanner.nextLine();
@@ -101,6 +107,7 @@ public class Person implements CRUD<Person> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("personID=");
         this.personID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 

@@ -17,7 +17,6 @@ public class Restaurant extends Building {
     private int numStars;
 
     public Restaurant(int restaurantID, String restaurantName, int numStars) throws SQLException {
-        super(DatabaseGetter.get().getBuilding(restaurantID));
         this.restaurantID = restaurantID;
         this.restaurantName = restaurantName;
         this.numStars = numStars;
@@ -33,7 +32,6 @@ public class Restaurant extends Building {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder("Restaurant ( ID=" + this.restaurantID
-                + " CONSTR_YEAR=" + this.constructionYear + " LOCATION_ID=" + this.locationID
                 + " RESTAURANT_NAME=" + this.restaurantName + " NUM_STARS="+ this.numStars + " )\n");
 
         return result.toString();
@@ -51,12 +49,14 @@ public class Restaurant extends Building {
         Scanner scanner = new Scanner(System.in);
         System.out.println("restaurantID=");
         this.restaurantID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("restaurantName=");
         this.restaurantName = scanner.nextLine();
         System.out.println("\n");
         System.out.println("numStars=");
         this.numStars = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -65,6 +65,7 @@ public class Restaurant extends Building {
         Scanner scanner = new Scanner(System.in);
         System.out.println("restaurantID=");
         this.restaurantID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -73,12 +74,14 @@ public class Restaurant extends Building {
         Scanner scanner = new Scanner(System.in);
         System.out.println("restaurantID=");
         this.restaurantID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("restaurantName=");
         this.restaurantName = scanner.nextLine();
         System.out.println("\n");
         System.out.println("numStars=");
         this.numStars = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -87,6 +90,7 @@ public class Restaurant extends Building {
         Scanner scanner = new Scanner(System.in);
         System.out.println("restaurantID=");
         this.restaurantID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 

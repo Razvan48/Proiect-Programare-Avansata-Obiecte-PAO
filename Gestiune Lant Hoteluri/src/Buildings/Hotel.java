@@ -17,7 +17,6 @@ public class Hotel extends Building {
     private int numStars;
 
     public Hotel(int hotelID, String hotelName, int numStars) throws SQLException {
-        super(DatabaseGetter.get().getBuilding(hotelID));
         this.hotelID = hotelID;
         this.hotelName = hotelName;
         this.numStars = numStars;
@@ -33,7 +32,6 @@ public class Hotel extends Building {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder("Hotel ( ID=" + this.hotelID
-                + " CONSTR_YEAR=" + super.constructionYear + " LOCATION_ID=" + super.locationID
                 + " HOTEL_NAME=" + this.hotelName + " NUM_STARS="+ this.numStars + " )\n");
 
         return result.toString();
@@ -51,12 +49,14 @@ public class Hotel extends Building {
         Scanner scanner = new Scanner(System.in);
         System.out.println("hotelID=");
         this.hotelID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("hotelName=");
         this.hotelName = scanner.nextLine();
         System.out.println("\n");
         System.out.println("numStars=");
         this.numStars = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -65,6 +65,7 @@ public class Hotel extends Building {
         Scanner scanner = new Scanner(System.in);
         System.out.println("hotelID=");
         this.hotelID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -73,12 +74,14 @@ public class Hotel extends Building {
         Scanner scanner = new Scanner(System.in);
         System.out.println("hotelID=");
         this.hotelID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("hotelName=");
         this.hotelName = scanner.nextLine();
         System.out.println("\n");
         System.out.println("numStars=");
         this.numStars = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -87,6 +90,7 @@ public class Hotel extends Building {
         Scanner scanner = new Scanner(System.in);
         System.out.println("hotelID=");
         this.hotelID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 

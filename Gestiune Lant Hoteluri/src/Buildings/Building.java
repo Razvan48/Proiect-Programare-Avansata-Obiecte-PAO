@@ -15,6 +15,10 @@ public class Building implements CRUD<Building> {
     protected int constructionYear;
     protected int locationID;
 
+    public Building() {
+
+    }
+
     public Building(int buildingID, int constructionYear, int locationID) {
         this.buildingID = buildingID;
         this.constructionYear = constructionYear;
@@ -49,9 +53,11 @@ public class Building implements CRUD<Building> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("constructionYear=");
         this.constructionYear = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("locationID=");
         this.locationID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -60,6 +66,7 @@ public class Building implements CRUD<Building> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("buildingID=");
         this.buildingID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -68,12 +75,15 @@ public class Building implements CRUD<Building> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("buildingID=");
         this.buildingID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("constructionYear=");
         this.constructionYear = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
         System.out.println("locationID=");
         this.locationID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
@@ -82,6 +92,7 @@ public class Building implements CRUD<Building> {
         Scanner scanner = new Scanner(System.in);
         System.out.println("buildingID=");
         this.buildingID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("\n");
     }
 
