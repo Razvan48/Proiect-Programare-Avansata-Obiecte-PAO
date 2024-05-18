@@ -30,7 +30,7 @@ public class Building implements CRUD<Building> {
     @Override
     public String toString() {
         return "Building ( ID=" + this.buildingID + " CONSTR_YEAR=" + this.constructionYear +
-                " locationID=" + this.locationID + " )";
+                " locationID=" + this.locationID + " )\n";
     }
 
     @Override
