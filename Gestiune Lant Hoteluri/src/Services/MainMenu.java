@@ -701,9 +701,10 @@ public class MainMenu {
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("0 show hotels in ascending order of hotelName from a specific location (locationID) with a number of stars greater than (num_stars)");
             System.out.println("1 for a given hotel(hotelID) display the number of single/double/triple rooms of that hotel");
+            System.out.println("2 load all employees into a text file");
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             int command = scanner.nextInt();
-            while (command <= -1 || 2 <= command) {
+            while (command <= -1 || 3 <= command) {
                 System.out.println("\n");
                 command = scanner.nextInt();
             }
@@ -716,6 +717,9 @@ public class MainMenu {
                     break;
                 case 1:
                     this.complexQuery1();
+                    break;
+                case 2:
+                    this.complexQuery2();
                     break;
                 default:
                     break;
@@ -801,6 +805,10 @@ public class MainMenu {
         System.out.println("Single Count=" + numSingleRoom + " Double Count=" + numDoubleRoom + " Triple Count=" + numTripleRoom);
 
         this.writeLog("Complex Query 1 with hotelID=" + hotelID);
+    }
+
+    private void complexQuery2() throws SQLException {
+        // TODO: de implementat
     }
 }
 
