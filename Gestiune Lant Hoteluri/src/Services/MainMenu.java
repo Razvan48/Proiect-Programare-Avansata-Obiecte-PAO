@@ -16,10 +16,11 @@ import Rooms.TripleRoom;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class MainMenu {
     private static MainMenu INSTANCE = null;
@@ -695,30 +696,114 @@ public class MainMenu {
     private void complexQueries() {
         try
         {
-            // TODO:
-            throw new SQLException();
+            Scanner scanner = new Scanner(System.in);
+
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("0 show hotels in ascending order of hotelName from a specific location (locationID) with a number of stars greater than (num_stars)");
+            System.out.println("1 for a given hotel(hotelID) display the number of single/double/triple rooms of that hotel");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            int command = scanner.nextInt();
+            while (command <= -1 || 2 <= command) {
+                System.out.println("\n");
+                command = scanner.nextInt();
+            }
+
+            System.out.println("\n\n\n");
+
+            switch(command) {
+                case 0:
+                    this.complexQuery0();
+                    break;
+                case 1:
+                    this.complexQuery1();
+                    break;
+                default:
+                    break;
+            }
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
-        /*
-        TODO: posibile query-uri complexe
-        1. sa se afiseze toate hotelurile dintr-o locatie data cu mai mult de nr stele date
-        2. sa se mareasca salariul tuturor angajatilor dintr-un hotel dat cu un anumit procent
-        3. sa se concedieze toti angajati dintr-un anumit hotel care au salariul peste o valoare data
-        4. sa se afiseze toti angajatii din toate hotelurile in ordine descrescatoare dupa salariu (union, ca un angajat poate lucra in mai multe locuri)
-        5. sa se adauge un nou angajat la o locatie si un hotel specificat
-        6. sa se adauge un nou hotel la o locatie specificata
-        7. sa se adauge o locatie specificata
-        8. sa se afiseze toti angajatii cu peste x salariu sortati crescator dupa primul prenume, descrescator dupa al doilea, crescator dupa ultimul
-        9. sa se stearga un angajat
-        10. sa se stearga un hotel (stergere in cascada)
-        11. sa se afiseze pt un hotel dintr-o locatie data numarul de camere single/double/triple pe care le are
-        12. sa se adauge la un hotel o camera singla
-        13. sa se adauge la un hotel o camera dubla
-        14. sa se adauge la un hotel o camera tripla
-        15. sa se stearga o camera dintr-un hotel
-         */
+    private void complexQuery0() throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("locationID=");
+        int locationID = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("\n");
+        System.out.println("numStars=");
+        int numStars = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("\n");
+
+        final String query = "SELECT hotel.hotelID, hotel.hotelName, hotel.numStars FROM hotel " +
+                "JOIN building ON hotel.hotelID = building.buildingID JOIN location " +
+                "ON building.locationID = location.locationID WHERE building.locationID = ? AND hotel.numStars > ?";
+
+        PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(query);
+        preparedStatement.setInt(1, locationID);
+        preparedStatement.setInt(2, numStars);
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        List<Hotel> hotelList = new ArrayList<Hotel>();
+
+        while (rs.next()) {
+            hotelList.add(new Hotel(rs.getInt("hotelID"), rs.getString("hotelName"), rs.getInt("numStars")));
+        }
+
+        Comparator<Hotel> hotelComparator = new Comparator<Hotel>() {
+            @Override
+            public int compare(Hotel a, Hotel b) {
+                return a.getHotelName().compareTo(b.getHotelName());
+            }
+        };
+
+        hotelList.sort(hotelComparator);
+
+        for (Hotel h : hotelList) {
+            System.out.println(h);
+        }
+
+        this.writeLog("Complex Query 0 with locationID=" + locationID + " and numStars=" + numStars);
+    }
+
+    private void complexQuery1() throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("hotelID=");
+        int hotelID = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("\n");
+
+        final String query = "SELECT " +
+                "(SELECT COUNT(*) FROM room JOIN singleRoom ON room.roomID = singleRoom.singleRoomID WHERE room.hotelID = ?) AS cnt1, " +
+                "(SELECT COUNT(*) FROM room JOIN doubleRoom ON room.roomID = doubleRoom.doubleRoomID WHERE room.hotelID = ?) AS cnt2, " +
+                "(SELECT COUNT(*) FROM room JOIN tripleRoom ON room.roomID = tripleRoom.tripleRoomID WHERE room.hotelID = ?) AS cnt3";
+
+        PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(query);
+        preparedStatement.setInt(1, hotelID);
+        preparedStatement.setInt(2, hotelID);
+        preparedStatement.setInt(3, hotelID);
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        int numSingleRoom = -1;
+        int numDoubleRoom = -1;
+        int numTripleRoom = -1;
+
+        if (rs.next()) {
+            numSingleRoom = rs.getInt("cnt1");
+            numDoubleRoom = rs.getInt("cnt2");
+            numTripleRoom = rs.getInt("cnt3");
+        }
+
+        System.out.println("Single Count=" + numSingleRoom + " Double Count=" + numDoubleRoom + " Triple Count=" + numTripleRoom);
+
+        this.writeLog("Complex Query 1 with hotelID=" + hotelID);
     }
 }
+
+
+
+
