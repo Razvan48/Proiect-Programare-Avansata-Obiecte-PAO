@@ -1,3 +1,4 @@
+import Facilities.Facility;
 import Services.Database;
 import Services.Setup;
 
@@ -6,6 +7,14 @@ import java.sql.*;
 public class Main {
     public static void main(String[] args) {
         Setup.get();
+
+        Facility facility = new Facility(1, "description");
+        try {
+            facility.create(facility);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

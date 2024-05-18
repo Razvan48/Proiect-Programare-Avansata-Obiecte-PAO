@@ -1,6 +1,11 @@
 package Rooms;
 
 import Services.Database;
+import Services.Setup;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class DoubleRoom extends Room
 {
@@ -25,5 +30,59 @@ public class DoubleRoom extends Room
     @Override
     public DoubleRoom clone() {
         return new DoubleRoom(this);
+    }
+
+    public int getDoubleRoomID() { return this.doubleRoomID; }
+
+    @Override
+    public int create(Room room) throws SQLException {
+        DoubleRoom doubleRoom = (DoubleRoom) room;
+        final String create = "INSERT INTO doubleRoom(doubleRoomID) VALUES (?)";
+
+        PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(create);
+        preparedStatement.setInt(1, doubleRoom.getDoubleRoomID());
+
+        return preparedStatement.executeUpdate();
+    }
+
+    @Override
+    public DoubleRoom read(Room room) throws SQLException {
+        DoubleRoom doubleRoom = (DoubleRoom) room;
+        final String read = "SELECT * FROM doubleRoom WHERE doubleRoomID = ?";
+
+        PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(read);
+        preparedStatement.setInt(1, doubleRoom.getDoubleRoomID());
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        if (rs.next()) {
+            return new DoubleRoom(rs.getInt("doubleRoomID"));
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    @Override
+    public int update(Room room) throws SQLException {
+        DoubleRoom doubleRoom = (DoubleRoom) room;
+        final String update = "UPDATE doubleRoom SET doubleRoomID = ? WHERE doubleRoomID = ?";
+
+        PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(update);
+        preparedStatement.setInt(1, doubleRoom.getDoubleRoomID());
+
+        return preparedStatement.executeUpdate();
+    }
+
+    @Override
+    public int delete(Room room) throws SQLException {
+        DoubleRoom doubleRoom = (DoubleRoom) room;
+        final String delete = "DELETE FROM doubleRoom WHERE doubleRoomID = ?";
+
+        PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(delete);
+        preparedStatement.setInt(1, doubleRoom.getDoubleRoomID());
+
+        return preparedStatement.executeUpdate();
     }
 }

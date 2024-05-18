@@ -41,4 +41,8 @@ public class Setup {
             e.printStackTrace();
         }
     }
+
+    public Connection getConnection() {
+        return this.connection;
+    }
 }
