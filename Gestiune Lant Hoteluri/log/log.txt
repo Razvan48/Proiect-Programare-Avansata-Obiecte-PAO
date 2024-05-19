@@ -1,37 +1,5 @@
-Command                                                                                              | TimeWhen (ss:mm:hh DD:MM:YYYY)
+Command                                                                                              | TimeWhen (hh:mm:ss DD/MM/YYYY)
                                                                      
 
 
-Building ReadAll                                                                                     | 22:55:4 18/5/2024                                                                                   
-Location ReadAll                                                                                     | 22:55:8 18/5/2024                                                                                   
-Hotel Create                                                                                         | 22:55:18 18/5/2024                                                                                  
-Hotel ReadAll                                                                                        | 22:55:21 18/5/2024                                                                                  
-Complex Query 0                                                                                      | 23:31:55 18/5/2024                                                                                  
-Building ReadAll                                                                                     | 23:32:7 18/5/2024                                                                                   
-Building Create                                                                                      | 23:32:25 18/5/2024                                                                                  
-Building ReadAll                                                                                     | 23:32:30 18/5/2024                                                                                  
-Complex Query 0                                                                                      | 23:32:39 18/5/2024                                                                                  
-Complex Query 0                                                                                      | 23:32:49 18/5/2024                                                                                  
-Hotel Create                                                                                         | 23:33:25 18/5/2024                                                                                  
-Complex Query 0                                                                                      | 23:33:30 18/5/2024                                                                                  
-Complex Query 0                                                                                      | 23:33:37 18/5/2024                                                                                  
-Complex Query 0                                                                                      | 23:33:43 18/5/2024                                                                                  
-Complex Query 0                                                                                      | 23:33:50 18/5/2024                                                                                  
-Complex Query 0 with locationID=1 and numStars=2                                                     | 23:49:39 18/5/2024                                                                                  
-Complex Query 1 with hotelID=1                                                                       | 23:54:51 18/5/2024                                                                                  
-Complex Query 1 with hotelID=0                                                                       | 23:55:3 18/5/2024                                                                                   
-Room ReadAll                                                                                         | 23:55:16 18/5/2024                                                                                  
-Hotel ReadAll                                                                                        | 23:55:27 18/5/2024                                                                                  
-Room Create                                                                                          | 23:55:35 18/5/2024                                                                                  
-Room Create                                                                                          | 23:55:42 18/5/2024                                                                                  
-Room Create                                                                                          | 23:55:47 18/5/2024                                                                                  
-Restaurant ReadAll                                                                                   | 23:55:52 18/5/2024                                                                                  
-Room ReadAll                                                                                         | 23:56:7 18/5/2024                                                                                   
-SingleRoom Create                                                                                    | 23:56:12 18/5/2024                                                                                  
-DoubleRoom Create                                                                                    | 23:56:21 18/5/2024                                                                                  
-TripleRoom Create                                                                                    | 23:56:28 18/5/2024                                                                                  
-Complex Query 0 with locationID=2 and numStars=2                                                     | 23:56:33 18/5/2024                                                                                  
-Complex Query 1 with hotelID=2                                                                       | 23:56:36 18/5/2024                                                                                  
-Complex Query 1 with hotelID=2                                                                       | 23:57:42 18/5/2024                                                                                  
-TripleRoom Create                                                                                    | 23:57:48 18/5/2024                                                                                  
-Complex Query 1 with hotelID=2                                                                       | 23:57:53 18/5/2024                                                                                  
+Complex Query 2                                                                                      | 14:51:6 19/5/2024                                                                                   

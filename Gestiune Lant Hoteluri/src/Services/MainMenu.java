@@ -26,12 +26,16 @@ public class MainMenu {
     private static MainMenu INSTANCE = null;
 
     private final String logPath;
-    private int logPadding;
+    private final int employeePadding;
+    private final String employeePath;
+    private final int logPadding;
 
     private MainMenu() {
         this.isRunning = true;
         this.logPath = "Gestiune Lant Hoteluri/log/log.txt";
+        this.employeePath = "Gestiune Lant Hoteluri/employee/employee.txt";
         this.logPadding = 100;
+        this.employeePadding = 50;
     }
 
     private boolean isRunning;
@@ -43,24 +47,27 @@ public class MainMenu {
         return MainMenu.INSTANCE;
     }
 
-    private boolean isFileEmpty() {
+    private boolean isLogFileEmpty() {
         File file = new File(this.logPath);
         return file.length() == 0;
     }
 
+    private boolean isEmployeeFileEmpty() {
+        File file = new File(this.employeePath);
+        return file.length() == 0;
+    }
+
     private void writeLog(String command) {
-        try {
-            FileWriter out = new FileWriter(this.logPath, true);
-            if (this.isFileEmpty()) {
+        try(FileWriter out = new FileWriter(this.logPath, true)) {
+            if (this.isLogFileEmpty()) {
                 String commandFormat = String.format("%-" + this.logPadding + "s", "Command");
-                String timeWhenFormat = String.format("%-" + this.logPadding + "s", "TimeWhen (ss:mm:hh DD:MM:YYYY)" + "\n");
+                String timeWhenFormat = String.format("%-" + this.logPadding + "s", "TimeWhen (hh:mm:ss DD/MM/YYYY)" + "\n");
                 out.write(commandFormat + " | " + timeWhenFormat + "\n\n\n");
             }
             String commandFormat = String.format("%-" + this.logPadding + "s", command);
             LocalDateTime now = LocalDateTime.now();
             String timeWhenFormat = String.format("%-" + this.logPadding + "s", now.getHour() + ":" + now.getMinute() + ":" + now.getSecond() + " " + now.getDayOfMonth() + "/" + now.getMonthValue() + "/" + now.getYear());
             out.write(commandFormat + " | " + timeWhenFormat + "\n");
-            out.close();
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -701,7 +708,7 @@ public class MainMenu {
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("0 show hotels in ascending order of hotelName from a specific location (locationID) with a number of stars greater than (num_stars)");
             System.out.println("1 for a given hotel(hotelID) display the number of single/double/triple rooms of that hotel");
-            System.out.println("2 load all employees into a text file");
+            System.out.println("2 group all employees by their salary and write in employee.txt file how many employees have a specific salary");
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             int command = scanner.nextInt();
             while (command <= -1 || 3 <= command) {
@@ -808,7 +815,51 @@ public class MainMenu {
     }
 
     private void complexQuery2() throws SQLException {
-        // TODO: de implementat
+        final String query = "SELECT employee.employeeID AS ID, employee.monthlySalary AS monthlySalary FROM employee JOIN person " +
+                "ON employee.employeeID = person.personID";
+
+        PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(query);
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        Map<Double, Integer> salaryFrequency = new HashMap<Double, Integer>();
+
+        while (rs.next()) {
+            int employeeID = rs.getInt("ID");
+            double salary = rs.getDouble("monthlySalary");
+            salaryFrequency.put(salary, salaryFrequency.getOrDefault(salary, 0) + 1);
+        }
+
+        try(FileWriter out = new FileWriter(this.employeePath, false)) {
+            String salaryFormat = String.format("%-" + this.employeePadding + "s", "Salary");
+            String numberEmployeesFormat = String.format("%-" + this.employeePadding + "s", "Number of Employees" + "\n");
+            out.write(salaryFormat + " | " + numberEmployeesFormat + "\n\n\n");
+
+            for (double salary : salaryFrequency.keySet()) {
+                int frequency = salaryFrequency.get(salary);
+
+                salaryFormat = String.format("%-" + this.employeePadding + "s", salary);
+                numberEmployeesFormat = String.format("%-" + this.employeePadding + "s", frequency);
+                out.write(salaryFormat + " | " + numberEmployeesFormat + "\n");
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String salaryFormat = String.format("%-" + this.employeePadding + "s", "Salary");
+        String numberEmployeesFormat = String.format("%-" + this.employeePadding + "s", "Number of Employees" + "\n");
+        System.out.print(salaryFormat + " | " + numberEmployeesFormat + "\n\n\n");
+
+        for (double salary : salaryFrequency.keySet()) {
+            int frequency = salaryFrequency.get(salary);
+
+            salaryFormat = String.format("%-" + this.employeePadding + "s", salary);
+            numberEmployeesFormat = String.format("%-" + this.employeePadding + "s", frequency);
+            System.out.print(salaryFormat + " | " + numberEmployeesFormat + "\n");
+        }
+
+        this.writeLog("Complex Query 2");
     }
 }
 

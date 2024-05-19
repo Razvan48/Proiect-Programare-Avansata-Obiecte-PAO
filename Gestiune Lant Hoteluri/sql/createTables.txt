@@ -60,7 +60,7 @@ CREATE TABLE client
 CREATE TABLE employee
 (
     employeeID INT(10) PRIMARY KEY,
-    montlySalary DECIMAL(10, 10) UNSIGNED NOT NULL,
+    monthlySalary DECIMAL(20, 10) UNSIGNED NOT NULL,
     age INT(3) UNSIGNED NOT NULL,
     occupation VARCHAR(50) NOT NULL,
 
