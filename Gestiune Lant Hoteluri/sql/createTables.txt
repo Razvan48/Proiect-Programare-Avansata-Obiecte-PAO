@@ -102,5 +102,17 @@ CREATE TABLE tripleRoom
     FOREIGN KEY (tripleRoomID) REFERENCES room(roomID)
 );
 
+CREATE TABLE roomFacility
+(
+    roomID INT(10),
+    facilityID INT(10),
+
+    PRIMARY KEY (roomID, facilityID),
+    FOREIGN KEY (roomID) REFERENCES room(roomID) ON DELETE CASCADE,
+    FOREIGN KEY (facilityID) REFERENCES facility(facilityID) ON DELETE CASCADE
+);
+
 COMMIT;
+
+
 

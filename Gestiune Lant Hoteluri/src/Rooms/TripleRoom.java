@@ -102,6 +102,7 @@ public class TripleRoom extends Room
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(update);
         preparedStatement.setInt(1, this.getTripleRoomID());
+        preparedStatement.setInt(2, this.getTripleRoomID());
 
         return preparedStatement.executeUpdate();
     }

@@ -12,6 +12,7 @@ import Rooms.DoubleRoom;
 import Rooms.Room;
 import Rooms.SingleRoom;
 import Rooms.TripleRoom;
+import RoomFacility.RoomFacility;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -97,16 +98,18 @@ public class MainMenu {
         System.out.println("10 room CRUD");
         System.out.println("11 singleRoom CRUD");
         System.out.println("12 tripleRoom CRUD");
-        System.out.println("13 more complex queries");
+        System.out.println("13 roomFacility CRUD");
+        System.out.println("14 more complex queries");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         int command = scanner.nextInt();
-        while (command <= -1 || 14 <= command) {
+        while (command <= -1 || 15 <= command) {
             System.out.println("\n");
             command = scanner.nextInt();
         }
         if (command == 0)
         {
             this.isRunning = false;
+            this.writeLog("EXIT");
             return;
         }
 
@@ -153,6 +156,9 @@ public class MainMenu {
                 System.out.println("tripleRoomCRUD");
                 break;
             case 13:
+                System.out.println("roomFacilityCRUD");
+                break;
+            case 14:
                 System.out.println("complex queries");
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 this.complexQueries();
@@ -213,6 +219,9 @@ public class MainMenu {
                 break;
             case 12:
                 this.tripleRoomCRUD(specificCRUDcommand);
+                break;
+            case 13:
+                this.roomFacilityCRUD(specificCRUDcommand);
                 break;
             default:
                 break;
@@ -690,6 +699,47 @@ public class MainMenu {
                         System.out.print(tr);
                     }
                     this.writeLog("TripleRoom ReadAll");
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void roomFacilityCRUD(int command) {
+        try {
+            RoomFacility roomFacility = new RoomFacility(0, 0);
+            switch (command) {
+                case 0:
+                    roomFacility.inputForCreate();
+                    roomFacility.create();
+                    this.writeLog("RoomFacility Create");
+                    break;
+                case 1:
+                    roomFacility.inputForRead();
+                    roomFacility = roomFacility.read();
+                    System.out.println(roomFacility);
+                    this.writeLog("RoomFacility Read");
+                    break;
+                case 2:
+                    roomFacility.inputForUpdate();
+                    roomFacility.update();
+                    this.writeLog("RoomFacility Update");
+                    break;
+                case 3:
+                    roomFacility.inputForDelete();
+                    roomFacility.delete();
+                    this.writeLog("RoomFacility Delete");
+                    break;
+                case 4:
+                    List<RoomFacility> roomFacilityList = RoomFacility.readAllRoomFacilities();
+                    for (RoomFacility rf : roomFacilityList) {
+                        System.out.print(rf);
+                    }
+                    this.writeLog("RoomFacility ReadAll");
                     break;
                 default:
                     break;

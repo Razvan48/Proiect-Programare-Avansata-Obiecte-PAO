@@ -3,6 +3,7 @@
 DROP TABLE tripleRoom;
 DROP TABLE doubleRoom;
 DROP TABLE singleRoom;
+DROP TABLE roomFacility;
 DROP TABLE room;
 DROP TABLE employee;
 DROP TABLE client;
@@ -14,4 +15,5 @@ DROP TABLE facility;
 DROP TABLE location;
 
 COMMIT;
+
 

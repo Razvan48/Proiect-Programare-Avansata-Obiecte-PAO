@@ -103,6 +103,7 @@ public class DoubleRoom extends Room
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(update);
         preparedStatement.setInt(1, this.getDoubleRoomID());
+        preparedStatement.setInt(2, this.getDoubleRoomID());
 
         return preparedStatement.executeUpdate();
     }

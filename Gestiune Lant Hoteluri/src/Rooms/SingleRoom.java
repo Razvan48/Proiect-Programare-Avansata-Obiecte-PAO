@@ -108,6 +108,7 @@ public class SingleRoom extends Room
 
         PreparedStatement preparedStatement = Setup.get().getConnection().prepareStatement(update);
         preparedStatement.setInt(1, this.getSingleRoomID());
+        preparedStatement.setInt(2, this.getSingleRoomID());
 
         return preparedStatement.executeUpdate();
     }
