@@ -19,3 +19,19 @@ Room Delete                                                                     
 RoomFacility ReadAll                                                                                 | 21:41:7 20/5/2024                                                                                   
 EXIT                                                                                                 | 21:41:8 20/5/2024                                                                                   
 EXIT                                                                                                 | 21:41:19 20/5/2024                                                                                  
+Complex Query 0 with locationID=1 and numStars=1                                                     | 0:0:56 23/5/2024                                                                                    
+Hotel ReadAll                                                                                        | 0:1:7 23/5/2024                                                                                     
+Building ReadAll                                                                                     | 0:1:32 23/5/2024                                                                                    
+Building Create                                                                                      | 0:1:40 23/5/2024                                                                                    
+Location ReadAll                                                                                     | 0:1:45 23/5/2024                                                                                    
+Hotel ReadAll                                                                                        | 0:1:52 23/5/2024                                                                                    
+Building ReadAll                                                                                     | 0:1:56 23/5/2024                                                                                    
+Hotel Create                                                                                         | 0:2:11 23/5/2024                                                                                    
+Hotel Update                                                                                         | 0:2:21 23/5/2024                                                                                    
+Hotel ReadAll                                                                                        | 0:2:24 23/5/2024                                                                                    
+Complex Query 0 with locationID=2 and numStars=2                                                     | 0:2:34 23/5/2024                                                                                    
+Complex Query 2                                                                                      | 0:2:37 23/5/2024                                                                                    
+Complex Query 1 with hotelID=1                                                                       | 0:2:44 23/5/2024                                                                                    
+Complex Query 0 with locationID=1 and numStars=2                                                     | 0:2:49 23/5/2024                                                                                    
+Complex Query 0 with locationID=1 and numStars=3                                                     | 0:2:56 23/5/2024                                                                                    
+EXIT                                                                                                 | 0:2:58 23/5/2024                                                                                    

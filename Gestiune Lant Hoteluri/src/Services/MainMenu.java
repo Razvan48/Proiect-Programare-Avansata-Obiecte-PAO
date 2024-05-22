@@ -814,14 +814,16 @@ public class MainMenu {
             hotelList.add(new Hotel(rs.getInt("hotelID"), rs.getString("hotelName"), rs.getInt("numStars")));
         }
 
+        /*
         Comparator<Hotel> hotelComparator = new Comparator<Hotel>() {
             @Override
             public int compare(Hotel a, Hotel b) {
                 return a.getHotelName().compareTo(b.getHotelName());
             }
         };
+         */
 
-        hotelList.sort(hotelComparator);
+        hotelList.sort((a, b) -> a.getHotelName().compareTo(b.getHotelName()));
 
         for (Hotel h : hotelList) {
             System.out.println(h);
