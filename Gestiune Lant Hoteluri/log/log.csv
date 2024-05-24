@@ -1,0 +1,18 @@
+Command,TimeWhen(hh:mm:ss DD/MM/YYYY)
+Building ReadAll,0:51:10 25/5/2024
+EXIT,0:51:12 25/5/2024
+Complex Query 2,0:56:0 25/5/2024
+Person Create,0:56:29 25/5/2024
+Person Create,0:56:38 25/5/2024
+Person ReadAll,0:57:13 25/5/2024
+Employee Create,0:57:28 25/5/2024
+Employee Create,0:57:38 25/5/2024
+Person Create,0:57:47 25/5/2024
+Person Create,0:57:56 25/5/2024
+Employee Create,0:58:21 25/5/2024
+Complex Query 2,0:58:27 25/5/2024
+Employee Update,0:59:26 25/5/2024
+Complex Query 2,0:59:30 25/5/2024
+EXIT,1:0:6 25/5/2024
+Complex Query 2,1:1:23 25/5/2024
+EXIT,1:1:25 25/5/2024

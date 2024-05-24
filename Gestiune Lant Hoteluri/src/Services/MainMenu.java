@@ -33,8 +33,8 @@ public class MainMenu {
 
     private MainMenu() {
         this.isRunning = true;
-        this.logPath = "Gestiune Lant Hoteluri/log/log.txt";
-        this.employeePath = "Gestiune Lant Hoteluri/employee/employee.txt";
+        this.logPath = "Gestiune Lant Hoteluri/log/log.csv";
+        this.employeePath = "Gestiune Lant Hoteluri/employee/employee.csv";
         this.logPadding = 100;
         this.employeePadding = 50;
     }
@@ -60,6 +60,7 @@ public class MainMenu {
 
     private void writeLog(String command) {
         try(FileWriter out = new FileWriter(this.logPath, true)) {
+            /*
             if (this.isLogFileEmpty()) {
                 String commandFormat = String.format("%-" + this.logPadding + "s", "Command");
                 String timeWhenFormat = String.format("%-" + this.logPadding + "s", "TimeWhen (hh:mm:ss DD/MM/YYYY)" + "\n");
@@ -69,6 +70,13 @@ public class MainMenu {
             LocalDateTime now = LocalDateTime.now();
             String timeWhenFormat = String.format("%-" + this.logPadding + "s", now.getHour() + ":" + now.getMinute() + ":" + now.getSecond() + " " + now.getDayOfMonth() + "/" + now.getMonthValue() + "/" + now.getYear());
             out.write(commandFormat + " | " + timeWhenFormat + "\n");
+             */
+            if (this.isLogFileEmpty()) {
+                out.write("Command,TimeWhen(hh:mm:ss DD/MM/YYYY)\n");
+            }
+            LocalDateTime now = LocalDateTime.now();
+            String timeWhen = now.getHour() + ":" + now.getMinute() + ":" + now.getSecond() + " " + now.getDayOfMonth() + "/" + now.getMonthValue() + "/" + now.getYear();
+            out.write(command + "," + timeWhen + "\n");
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -758,7 +766,7 @@ public class MainMenu {
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("0 show hotels in ascending order of hotelName from a specific location (locationID) with a number of stars greater than (num_stars)");
             System.out.println("1 for a given hotel(hotelID) display the number of single/double/triple rooms of that hotel");
-            System.out.println("2 group all employees by their salary and write in employee.txt file how many employees have a specific salary");
+            System.out.println("2 group all employees by their salary and write in employee.csv file how many employees have a specific salary");
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             int command = scanner.nextInt();
             while (command <= -1 || 3 <= command) {
@@ -883,6 +891,7 @@ public class MainMenu {
         }
 
         try(FileWriter out = new FileWriter(this.employeePath, false)) {
+            /*
             String salaryFormat = String.format("%-" + this.employeePadding + "s", "Salary");
             String numberEmployeesFormat = String.format("%-" + this.employeePadding + "s", "Number of Employees" + "\n");
             out.write(salaryFormat + " | " + numberEmployeesFormat + "\n\n\n");
@@ -893,6 +902,14 @@ public class MainMenu {
                 salaryFormat = String.format("%-" + this.employeePadding + "s", salary);
                 numberEmployeesFormat = String.format("%-" + this.employeePadding + "s", frequency);
                 out.write(salaryFormat + " | " + numberEmployeesFormat + "\n");
+            }
+             */
+            out.write("Salary,Number of Employees\n");
+
+            for (double salary : salaryFrequency.keySet()) {
+                int frequency = salaryFrequency.get(salary);
+
+                out.write(salary + "," + frequency + "\n");
             }
         }
         catch (IOException e) {
