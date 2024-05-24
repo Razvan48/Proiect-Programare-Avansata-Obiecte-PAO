@@ -75,7 +75,7 @@ public class MainMenu {
                 out.write("Command,TimeWhen(hh:mm:ss DD/MM/YYYY)\n");
             }
             LocalDateTime now = LocalDateTime.now();
-            String timeWhen = now.getHour() + ":" + now.getMinute() + ":" + now.getSecond() + " " + now.getDayOfMonth() + "/" + now.getMonthValue() + "/" + now.getYear();
+            String timeWhen = String.format("%02d:%02d:%02d %02d/%02d/%d", now.getHour(), now.getMinute(), now.getSecond(), now.getDayOfMonth(), now.getMonthValue(), now.getYear());
             out.write(command + "," + timeWhen + "\n");
         }
         catch (IOException e) {
