@@ -24,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class MainMenu {
     private static MainMenu INSTANCE = null;
@@ -50,15 +51,7 @@ public class MainMenu {
         return MainMenu.INSTANCE;
     }
 
-    private boolean isLogFileEmpty() {
-        File file = new File(this.logPath);
-        return file.length() == 0;
-    }
-
-    private boolean isEmployeeFileEmpty() {
-        File file = new File(this.employeePath);
-        return file.length() == 0;
-    }
+    private Predicate<String> isFileEmpty = (filePath) -> new File(filePath).length() == 0;
 
     private void writeLog(String command) {
         try(FileWriter out = new FileWriter(this.logPath, true)) {
@@ -73,7 +66,7 @@ public class MainMenu {
             String timeWhenFormat = String.format("%-" + this.logPadding + "s", now.getHour() + ":" + now.getMinute() + ":" + now.getSecond() + " " + now.getDayOfMonth() + "/" + now.getMonthValue() + "/" + now.getYear());
             out.write(commandFormat + " | " + timeWhenFormat + "\n");
              */
-            if (this.isLogFileEmpty()) {
+            if (this.isFileEmpty.test(this.logPath)) {
                 out.write("Command,TimeWhen(hh:mm:ss DD/MM/YYYY)\n");
             }
             LocalDateTime now = LocalDateTime.now();
@@ -827,16 +820,14 @@ public class MainMenu {
             hotelList.add(new Hotel(rs.getInt("hotelID"), rs.getString("hotelName"), rs.getInt("numStars")));
         }
 
-        /*
         Comparator<Hotel> hotelComparator = new Comparator<Hotel>() {
             @Override
             public int compare(Hotel a, Hotel b) {
                 return a.getHotelName().compareTo(b.getHotelName());
             }
         };
-         */
 
-        hotelList.sort((a, b) -> a.getHotelName().compareTo(b.getHotelName()));
+        hotelList.sort(hotelComparator);
 
         for (Hotel h : hotelList) {
             System.out.println(h);

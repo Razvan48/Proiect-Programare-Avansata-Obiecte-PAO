@@ -8,3 +8,18 @@ Employee Delete,13:37:41 25/05/2024
 Employee Delete,13:37:44 25/05/2024
 Employee ReadAll,13:37:48 25/05/2024
 EXIT,13:37:59 25/05/2024
+Person ReadAll,14:19:47 25/05/2024
+Employee Create,14:19:56 25/05/2024
+Complex Query 2,14:19:59 25/05/2024
+EXIT,14:20:02 25/05/2024
+Complex Query 0 with locationID=1 and numStars=1,14:21:23 25/05/2024
+Building ReadAll,14:21:35 25/05/2024
+Hotel Update,14:21:45 25/05/2024
+Hotel ReadAll,14:21:47 25/05/2024
+Hotel Update,14:22:05 25/05/2024
+Hotel Update,14:22:13 25/05/2024
+Hotel ReadAll,14:22:15 25/05/2024
+Complex Query 0 with locationID=1 and numStars=1,14:22:24 25/05/2024
+Hotel Update,14:22:38 25/05/2024
+Complex Query 0 with locationID=1 and numStars=1,14:22:43 25/05/2024
+EXIT,14:22:46 25/05/2024
