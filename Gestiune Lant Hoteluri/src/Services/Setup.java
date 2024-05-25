@@ -3,21 +3,20 @@ package Services;
 import java.sql.*;
 
 public class Setup {
-
-    private final String DATABASE_URL = "jdbc:mysql://localhost:3306/GestiuneLantHoteluri";
-    private final String DATABASE_USER = "root";
-    private final String DATABASE_PASSWORD = "root";
+    private final ConnectionDetails connectionDetails;
     private Connection connection = null;
 
     private static Setup INSTANCE = null;
-    private Setup() {
+    private Setup(String DATABASE_URL, String DATABASE_USER, String DATABASE_PASSWORD) {
+        this.connectionDetails = new ConnectionDetails(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
         loadDriver();
         createConnection();
     }
 
     public static Setup get() {
         if (Setup.INSTANCE == null) {
-            Setup.INSTANCE = new Setup();
+            Setup.INSTANCE = new Setup("jdbc:mysql://localhost:3306/GestiuneLantHoteluri",
+                    "root", "root");
         }
         return Setup.INSTANCE;
     }
@@ -34,7 +33,9 @@ public class Setup {
 
     private void createConnection() {
         try {
-            this.connection = DriverManager.getConnection(this.DATABASE_URL, this.DATABASE_USER, this.DATABASE_PASSWORD);
+            this.connection = DriverManager.getConnection(this.connectionDetails.getDATABASE_URL(),
+                    this.connectionDetails.getDATABASE_USER(),
+                    this.connectionDetails.getDATABASE_PASSWORD());
         }
         catch (Exception e) {
             System.out.println("ERROR :: Setup createConnection :: could not create connection\n");

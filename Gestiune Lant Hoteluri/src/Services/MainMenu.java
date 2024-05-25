@@ -3,6 +3,8 @@ package Services;
 import Buildings.Building;
 import Buildings.Hotel;
 import Buildings.Restaurant;
+import Exceptions.CommandException;
+import Exceptions.OutputException;
 import Facilities.Facility;
 import Locations.Location;
 import People.Client;
@@ -83,13 +85,13 @@ public class MainMenu {
         }
     }
 
-    public void run() {
+    public void run() throws CommandException {
         while (this.isRunning) {
             this.oneCommand();
         }
     }
 
-    private void oneCommand() {
+    private void oneCommand() throws CommandException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -172,7 +174,7 @@ public class MainMenu {
                 this.complexQueries();
                 return;
             default:
-                break;
+                throw new CommandException("ERROR :: Command Exception :: Command does not exist.\n");
         }
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("0 create");
@@ -232,7 +234,7 @@ public class MainMenu {
                 this.roomFacilityCRUD(specificCRUDcommand);
                 break;
             default:
-                break;
+                throw new CommandException("ERROR :: Command Exception :: Command does not exist.\n");
         }
     }
 
@@ -793,6 +795,9 @@ public class MainMenu {
         catch (SQLException e) {
             e.printStackTrace();
         }
+        catch (OutputException e) {
+            e.printStackTrace();
+        }
     }
 
     private void complexQuery0() throws SQLException {
@@ -874,7 +879,7 @@ public class MainMenu {
         this.writeLog("Complex Query 1 with hotelID=" + hotelID);
     }
 
-    private void complexQuery2() throws SQLException {
+    private void complexQuery2() throws SQLException, OutputException {
         final String query = "SELECT employee.employeeID AS ID, employee.monthlySalary AS monthlySalary FROM employee JOIN person " +
                 "ON employee.employeeID = person.personID";
 
@@ -888,6 +893,10 @@ public class MainMenu {
             int employeeID = rs.getInt("ID");
             double salary = rs.getDouble("monthlySalary");
             salaryFrequency.put(salary, salaryFrequency.getOrDefault(salary, 0) + 1);
+        }
+
+        if (salaryFrequency.isEmpty()) {
+            throw new OutputException("ERROR :: Output Exception :: No output for Complex Query 2.\n");
         }
 
         try(FileWriter out = new FileWriter(this.employeePath, false)) {
