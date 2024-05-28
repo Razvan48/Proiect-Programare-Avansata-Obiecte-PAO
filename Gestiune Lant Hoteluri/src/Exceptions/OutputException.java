@@ -5,10 +5,10 @@ public class OutputException extends Exception {
         super();
     }
     public OutputException(String message) {
-        super(message);
+        super("ERROR :: Output Exception :: " + message);
     }
     public OutputException(String message, Throwable cause) {
-        super(message, cause);
+        super("ERROR :: Output Exception :: " + message, cause);
     }
     public OutputException(Throwable cause) {
         super(cause);

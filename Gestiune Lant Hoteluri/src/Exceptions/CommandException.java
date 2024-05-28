@@ -5,10 +5,10 @@ public class CommandException extends Exception {
         super();
     }
     public CommandException(String message) {
-        super(message);
+        super("ERROR :: Command Exception :: " + message);
     }
     public CommandException(String message, Throwable cause) {
-        super(message, cause);
+        super("ERROR :: Command Exception :: " + message, cause);
     }
     public CommandException(Throwable cause) {
         super(cause);
